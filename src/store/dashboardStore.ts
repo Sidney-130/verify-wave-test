@@ -7,6 +7,7 @@ interface DashboardStore {
   recentScans: Scan[];
   addScan: (filename: string) => string;
   resolveScan: (id: string, status: ScanStatus, confidence: number) => void;
+  removeScan: (id: string) => void;
 }
 
 export const useDashboardStore = create<DashboardStore>()(
@@ -43,6 +44,8 @@ export const useDashboardStore = create<DashboardStore>()(
             fakeDetected: status === "FAKE" ? s.stats.fakeDetected + 1 : s.stats.fakeDetected,
           },
         })),
+      removeScan: (id) =>
+        set((s) => ({ recentScans: s.recentScans.filter((scan) => scan.id !== id) })),
     }),
     { name: "trustscan-dashboard" }
   )
