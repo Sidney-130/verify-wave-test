@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import { Dashboard } from "./components/pages/Dashboard";
-import { Detection } from "./components/pages/Detection";
+import { Results } from "./components/pages/Results";
 import { History } from "./components/pages/History";
 import { Settings } from "./components/pages/Settings";
 import { Profile } from "./components/pages/Profile";
@@ -12,7 +12,7 @@ function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route index element={<Dashboard />} />
-          <Route path="detection" element={<Detection />} />
+          <Route path="results" element={<Results />} />
           <Route path="history" element={<History />} />
           <Route path="settings" element={<Settings />} />
           <Route path="profile" element={<Profile />} />
