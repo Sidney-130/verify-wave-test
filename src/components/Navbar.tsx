@@ -1,25 +1,10 @@
-import {
-  Bell,
-  Menu,
-  User,
-  LayoutDashboard,
-  ScanSearch,
-  History,
-  Settings,
-} from "lucide-react";
+import { Bell, Menu, User } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { useUIStore } from "../store/uiStore";
 
 interface NavbarProps {
   onMenuClick: () => void;
 }
-
-const navItems = [
-  { to: "/", label: "Dashboard", icon: LayoutDashboard },
-  { to: "/results", label: "Results", icon: ScanSearch },
-  { to: "/history", label: "History", icon: History },
-  { to: "/settings", label: "Settings", icon: Settings },
-];
 
 export function Navbar({ onMenuClick }: NavbarProps) {
   const notificationCount = useUIStore((s) => s.notificationCount);
@@ -55,24 +40,6 @@ export function Navbar({ onMenuClick }: NavbarProps) {
           </NavLink>
         </div>
       </header>
-
-      <nav className="fixed bottom-0 left-0 right-0 z-40 flex bg-card border-t border-border md:hidden">
-        {navItems.map(({ to, label, icon: Icon }) => (
-          <NavLink
-            key={to}
-            to={to}
-            end={to === "/"}
-            className={({ isActive }) =>
-              `flex flex-col items-center justify-center gap-1 flex-1 py-3 text-xs font-medium uppercase tracking-wider transition-colors ${
-                isActive ? "text-primary" : "text-muted-foreground"
-              }`
-            }
-          >
-            <Icon size={22} />
-            <span>{label}</span>
-          </NavLink>
-        ))}
-      </nav>
     </>
   );
 }
