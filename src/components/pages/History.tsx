@@ -29,51 +29,53 @@ function ConfidenceBar({ value }: { value: number }) {
   );
 }
 
-function ScanRow({ scan, onView, onDelete }: { scan: HistoryScan; onView: () => void; onDelete: () => void }) {
+function DesktopRow({ scan, onView, onDelete }: { scan: HistoryScan; onView: () => void; onDelete: () => void }) {
   return (
-    <>
-      <tr className="hidden md:table-row border-b border-border hover:bg-muted/20 transition-colors">
-        <td className="px-4 py-4">
-          <div className="flex items-center gap-3">
-            <FileVideo size={16} className="text-muted-foreground shrink-0" />
-            <span className="text-sm text-foreground font-medium truncate max-w-[220px]">{scan.filename}</span>
-          </div>
-        </td>
-        <td className="px-4 py-4 text-sm text-muted-foreground whitespace-nowrap">{scan.date}</td>
-        <td className="px-4 py-4"><StatusBadge status={scan.status} /></td>
-        <td className="px-4 py-4"><ConfidenceBar value={scan.confidence} /></td>
-        <td className="px-4 py-4">
-          <div className="flex items-center gap-2">
-            <button onClick={onView} className="text-xs text-foreground border border-border px-3 py-1 rounded hover:bg-muted/40 transition-colors">View</button>
-            <button onClick={onDelete} className="text-xs text-red-400 border border-red-500/30 px-3 py-1 rounded hover:bg-red-500/10 transition-colors">Delete</button>
-          </div>
-        </td>
-      </tr>
-
-      <div className="md:hidden bg-card border border-border rounded-lg p-4 space-y-3">
+    <tr className="border-b border-border hover:bg-muted/20 transition-colors">
+      <td className="px-4 py-4">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 bg-muted rounded flex items-center justify-center shrink-0">
-            <FileVideo size={18} className="text-muted-foreground" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-foreground truncate">{scan.filename}</p>
-            <p className="text-xs text-muted-foreground">{scan.date}</p>
-          </div>
-          <button onClick={onView} className="text-muted-foreground hover:text-primary transition-colors">
-            <ExternalLink size={16} />
+          <FileVideo size={16} className="text-muted-foreground shrink-0" />
+          <span className="text-sm text-foreground font-medium truncate max-w-[220px]">{scan.filename}</span>
+        </div>
+      </td>
+      <td className="px-4 py-4 text-sm text-muted-foreground whitespace-nowrap">{scan.date}</td>
+      <td className="px-4 py-4"><StatusBadge status={scan.status} /></td>
+      <td className="px-4 py-4"><ConfidenceBar value={scan.confidence} /></td>
+      <td className="px-4 py-4">
+        <div className="flex items-center gap-2">
+          <button onClick={onView} className="text-xs text-foreground border border-border px-3 py-1 rounded hover:bg-muted/40 transition-colors">View</button>
+          <button onClick={onDelete} className="text-xs text-red-400 border border-red-500/30 px-3 py-1 rounded hover:bg-red-500/10 transition-colors">Delete</button>
+        </div>
+      </td>
+    </tr>
+  );
+}
+
+function MobileCard({ scan, onView, onDelete }: { scan: HistoryScan; onView: () => void; onDelete: () => void }) {
+  return (
+    <div className="bg-card border border-border rounded-lg p-4 space-y-3">
+      <div className="flex items-center gap-3">
+        <div className="w-12 h-12 bg-muted rounded flex items-center justify-center shrink-0">
+          <FileVideo size={18} className="text-muted-foreground" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-medium text-foreground truncate">{scan.filename}</p>
+          <p className="text-xs text-muted-foreground">{scan.date}</p>
+        </div>
+        <button onClick={onView} className="text-muted-foreground hover:text-primary transition-colors shrink-0">
+          <ExternalLink size={16} />
+        </button>
+      </div>
+      <div className="flex items-center justify-between">
+        <StatusBadge status={scan.status} />
+        <div className="flex items-center gap-3">
+          <ConfidenceBar value={scan.confidence} />
+          <button onClick={onDelete} className="text-red-400 hover:text-red-300 transition-colors">
+            <Trash2 size={14} />
           </button>
         </div>
-        <div className="flex items-center justify-between">
-          <StatusBadge status={scan.status} />
-          <div className="flex items-center gap-3">
-            <ConfidenceBar value={scan.confidence} />
-            <button onClick={onDelete} className="text-red-400 hover:text-red-300 transition-colors">
-              <Trash2 size={14} />
-            </button>
-          </div>
-        </div>
       </div>
-    </>
+    </div>
   );
 }
 
@@ -101,7 +103,7 @@ export function History() {
         <p className="text-sm text-muted-foreground mt-1">Comprehensive log of all neural analysis operations.</p>
       </div>
 
-      <div className="flex gap-2">
+      <div className="flex gap-2 flex-wrap">
         {filters.map(({ label, value }) => (
           <button
             key={value}
@@ -135,7 +137,7 @@ export function History() {
               </thead>
               <tbody>
                 {filtered.map((scan) => (
-                  <ScanRow
+                  <DesktopRow
                     key={scan.id}
                     scan={scan}
                     onView={() => navigate(`/detection?id=${scan.id}`)}
@@ -148,7 +150,7 @@ export function History() {
 
           <div className="md:hidden space-y-3">
             {filtered.map((scan) => (
-              <ScanRow
+              <MobileCard
                 key={scan.id}
                 scan={scan}
                 onView={() => navigate(`/detection?id=${scan.id}`)}
