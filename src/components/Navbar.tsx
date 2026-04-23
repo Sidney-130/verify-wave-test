@@ -1,4 +1,12 @@
-import { Bell, Menu, User, LayoutDashboard, ScanSearch, History, Settings } from "lucide-react";
+import {
+  Bell,
+  Menu,
+  User,
+  LayoutDashboard,
+  ScanSearch,
+  History,
+  Settings,
+} from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { useUIStore } from "../store/uiStore";
 
@@ -8,7 +16,7 @@ interface NavbarProps {
 
 const navItems = [
   { to: "/", label: "Dashboard", icon: LayoutDashboard },
-  { to: "/detection", label: "Detection", icon: ScanSearch },
+  { to: "/results", label: "Results", icon: ScanSearch },
   { to: "/history", label: "History", icon: History },
   { to: "/settings", label: "Settings", icon: Settings },
 ];
@@ -26,7 +34,7 @@ export function Navbar({ onMenuClick }: NavbarProps) {
           <Menu size={24} />
         </button>
 
-        <span className="hidden md:block text-lg font-bold tracking-wider text-foreground">
+        <span className="hidden md:block text-2xl font-bold tracking-wider text-primary">
           TrustScan
         </span>
 
@@ -41,7 +49,7 @@ export function Navbar({ onMenuClick }: NavbarProps) {
           </button>
           <NavLink
             to="/profile"
-            className="w-9 h-9 rounded-full bg-muted flex items-center justify-center text-white hover:scale-110 transition-transform"
+            className="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-primary-foreground hover:scale-110 transition-transform"
           >
             <User size={20} />
           </NavLink>

@@ -10,7 +10,7 @@ import {
 
 const navItems = [
   { to: "/", label: "Dashboard", icon: LayoutDashboard },
-  { to: "/detection", label: "Detection", icon: ScanSearch },
+  { to: "/results", label: "Results", icon: ScanSearch },
   { to: "/history", label: "History", icon: History },
   { to: "/settings", label: "Settings", icon: Settings },
 ];
@@ -55,7 +55,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
                 `flex items-center gap-3 px-6 py-3 text-sm font-medium uppercase tracking-wider transition-colors border-l-2 ${
                   isActive
                     ? "text-primary border-primary bg-primary/5"
-                    : "text-muted-foreground border-transparent hover:bg-muted/40 hover:text-yellow-400/80"
+                    : "text-muted-foreground border-transparent hover:bg-muted/40 hover:text-primary/70"
                 }`
               }
             >
@@ -68,10 +68,10 @@ export function Sidebar({ open, onClose }: SidebarProps) {
         <NavLink
           to="/profile"
           onClick={onClose}
-          className="px-4 py-4 border-t border-border flex items-center gap-3 hover:bg-muted/30 transition-colors"
+          className="px-4 py-4 border-t border-border flex items-center gap-3 hover:bg-muted/30 transition-colors hover:text-primary/70"
         >
-          <div className="w-9 h-9 rounded-full bg-muted flex items-center justify-center shrink-0">
-            <User size={18} className="text-muted-foreground" />
+          <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center shrink-0 hover:text-primary/70">
+            <User size={18} className="text-primary-foreground" />
           </div>
           <div className="min-w-0">
             <p className="text-sm font-semibold text-foreground truncate">
