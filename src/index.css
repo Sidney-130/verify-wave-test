@@ -16,7 +16,7 @@
   --card-foreground: oklch(0.96 0 0);
   --popover: oklch(0.1 0 0);
   --popover-foreground: oklch(0.96 0 0);
-  --primary: oklch(0.82 0.16 82);
+  --primary: oklch(91.428% 0.18515 103.479);
   --primary-foreground: oklch(0.08 0 0);
   --secondary: oklch(0.38 0.04 300);
   --secondary-foreground: oklch(0.96 0 0);
@@ -137,8 +137,12 @@
 }
 
 @keyframes scan-line {
-  0% { top: 0%; }
-  100% { top: 100%; }
+  0% {
+    top: 0%;
+  }
+  100% {
+    top: 100%;
+  }
 }
 
 .animate-scan-line {
@@ -146,8 +150,14 @@
 }
 
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .animate-fade-up {
