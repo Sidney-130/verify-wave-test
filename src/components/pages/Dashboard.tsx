@@ -1,6 +1,8 @@
+import { useMemo } from "react";
 import { ChevronRight, FileVideo, Loader2 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDashboardStore } from "../../store/dashboardStore";
+import { useScanStore } from "../../store/scanStore";
 import { UploadZone } from "../UploadZone";
 import type { DashboardStats, Scan } from "../../types";
 
@@ -56,14 +58,20 @@ function ScanItem({ scan, onClick }: { scan: Scan; onClick?: () => void }) {
 }
 
 export function Dashboard() {
-  const { stats, recentScans } = useDashboardStore();
+  const stats = useDashboardStore((s) => s.stats);
+  const recentScans = useDashboardStore((s) => s.recentScans);
+  const historyScans = useScanStore((s) => s.scans);
+  const visibleScans = useMemo(
+    () => recentScans.filter((r) => r.status === "SCANNING" || historyScans.some((h) => h.id === r.id)),
+    [recentScans, historyScans]
+  );
   const navigate = useNavigate();
 
   return (
     <div className="max-w-2xl mx-auto md:max-w-none space-y-6">
       <StatsRow stats={stats} />
       <UploadZone />
-      {recentScans.length > 0 && (
+      {visibleScans.length > 0 && (
         <div>
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-base font-semibold text-foreground">Recent Investigations</h2>
@@ -72,11 +80,11 @@ export function Dashboard() {
             </Link>
           </div>
           <div className="space-y-2">
-            {recentScans.map((scan) => (
+            {visibleScans.map((scan) => (
               <ScanItem
                 key={scan.id}
                 scan={scan}
-                onClick={() => navigate(`/detection?id=${scan.id}`)}
+                onClick={() => navigate(`/results?id=${scan.id}`)}
               />
             ))}
           </div>

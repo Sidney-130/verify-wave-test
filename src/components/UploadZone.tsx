@@ -114,16 +114,17 @@ export function UploadZone() {
     mutationFn: scanFile,
     onMutate: (f) => addScan(f.name),
     onSuccess: (res, _vars, dashboardId) => {
-      resolveScan(dashboardId as string, res.status, res.confidence);
+      const id = dashboardId as string;
+      resolveScan(id, res.status, res.confidence);
       addToHistory({
-        id: res.id,
+        id,
         filename: res.filename,
         status: res.status,
         confidence: res.confidence,
         date: new Date().toLocaleString("en-US", { month: "short", day: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit" }),
         breakdown: res.breakdown,
       });
-      setResult(res);
+      setResult({ ...res, id });
     },
   });
 
@@ -243,7 +244,7 @@ export function UploadZone() {
         <ResultModal
           result={result}
           onClose={clearFile}
-          onViewResult={() => { setResult(null); navigate("/detection"); }}
+          onViewResult={() => { const id = result.id; setResult(null); navigate(`/results?id=${id}`); }}
         />
       )}
     </>
