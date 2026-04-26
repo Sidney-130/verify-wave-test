@@ -16,7 +16,7 @@ export const useUserStore = create<UserStore>()(
     (set) => ({
       name: "Janey",
       email: "janey@gmail.com",
-      role: "PREMIUM OPS",
+      role: "Developer",
       setField: (key, value) => set({ [key]: value } as Partial<UserStore>),
     }),
     { name: "trustscan-user" },

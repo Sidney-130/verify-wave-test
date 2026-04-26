@@ -77,9 +77,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
             <p className="text-sm font-semibold text-foreground truncate">
               Janey
             </p>
-            <p className="text-xs text-muted-foreground truncate">
-              PREMIUM OPS
-            </p>
+            <p className="text-xs text-muted-foreground truncate">Developer</p>
           </div>
         </NavLink>
       </aside>
