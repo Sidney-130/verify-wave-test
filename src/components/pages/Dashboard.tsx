@@ -35,8 +35,11 @@ function ScanItem({ scan, onClick }: { scan: Scan; onClick?: () => void }) {
         !isScanning ? "cursor-pointer hover:bg-muted/20" : ""
       }`}
     >
-      <div className="w-12 h-12 rounded bg-muted flex items-center justify-center shrink-0 relative">
-        <FileVideo size={20} className="text-muted-foreground" />
+      <div className="w-12 h-12 rounded bg-muted flex items-center justify-center shrink-0 relative overflow-hidden">
+        {scan.thumbnail
+          ? <img src={scan.thumbnail} alt={scan.filename} className="w-full h-full object-cover" />
+          : <FileVideo size={20} className="text-muted-foreground" />
+        }
         {!isScanning && (
           <span className={`absolute bottom-0 left-0 text-[10px] font-bold px-1 rounded-sm ${
             scan.status === "FAKE" ? "bg-red-500 text-white" : "bg-green-600 text-white"

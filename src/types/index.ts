@@ -7,6 +7,7 @@ export interface Scan {
   confidence?: number;
   timestamp: string;
   label: string;
+  thumbnail?: string;
 }
 
 export interface DashboardStats {

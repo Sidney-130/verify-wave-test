@@ -9,6 +9,7 @@ export interface HistoryScan {
   confidence: number;
   date: string;
   breakdown: { label: string; match: number }[];
+  thumbnail?: string;
 }
 
 interface ScanStore {

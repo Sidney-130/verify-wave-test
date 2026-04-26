@@ -5,7 +5,7 @@ import type { DashboardStats, Scan, ScanStatus } from "../types";
 interface DashboardStore {
   stats: DashboardStats;
   recentScans: Scan[];
-  addScan: (filename: string) => string;
+  addScan: (filename: string, thumbnail?: string) => string;
   resolveScan: (id: string, status: ScanStatus, confidence: number) => void;
   removeScan: (id: string) => void;
 }
@@ -19,7 +19,7 @@ export const useDashboardStore = create<DashboardStore>()(
         accuracy: 99,
       },
       recentScans: [],
-      addScan: (filename) => {
+      addScan: (filename, thumbnail) => {
         const id = crypto.randomUUID();
         const newScan: Scan = {
           id,
@@ -27,6 +27,7 @@ export const useDashboardStore = create<DashboardStore>()(
           status: "SCANNING",
           timestamp: "just now",
           label: "Scanning...",
+          thumbnail,
         };
         set((s) => ({ recentScans: [newScan, ...s.recentScans].slice(0, 10) }));
         return id;

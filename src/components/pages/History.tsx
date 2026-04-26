@@ -52,7 +52,12 @@ function DesktopRow({
     <tr className="border-b border-border hover:bg-muted/20 transition-colors">
       <td className="px-4 py-4">
         <div className="flex items-center gap-3">
-          <FileVideo size={16} className="text-muted-foreground shrink-0" />
+          <div className="w-8 h-8 rounded bg-muted overflow-hidden shrink-0 flex items-center justify-center">
+            {scan.thumbnail
+              ? <img src={scan.thumbnail} alt={scan.filename} className="w-full h-full object-cover" />
+              : <FileVideo size={14} className="text-muted-foreground" />
+            }
+          </div>
           <span className="text-sm text-foreground font-medium truncate max-w-[220px]">
             {scan.filename}
           </span>
@@ -99,8 +104,11 @@ function MobileCard({
   return (
     <div className="bg-card border border-border rounded-lg p-4 space-y-3">
       <div className="flex items-center gap-3">
-        <div className="w-12 h-12 bg-muted rounded flex items-center justify-center shrink-0">
-          <FileVideo size={18} className="text-muted-foreground" />
+        <div className="w-12 h-12 bg-muted rounded overflow-hidden shrink-0 flex items-center justify-center">
+          {scan.thumbnail
+            ? <img src={scan.thumbnail} alt={scan.filename} className="w-full h-full object-cover" />
+            : <FileVideo size={18} className="text-muted-foreground" />
+          }
         </div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium text-foreground truncate">
